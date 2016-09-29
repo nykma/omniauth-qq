@@ -56,7 +56,7 @@ module OmniAuth
           # Instead of calling super, duplicate the functionlity, but change the provider to 'weibo'.
           # This is done in order to preserve compatibilty with the regular weibo provider
           hash = auth_hash
-          hash[:provider] = "qq_connect"
+          hash[:provider] = "qq_mobile"
           self.env['omniauth.auth'] = hash
           call_app!
 
