@@ -2,11 +2,7 @@
 
 This is QQ strategies collection for OmniAuth 1.0, which includes TQQ and QQ-Connect.
   
-## [TQQ](http://open.t.qq.com/) OAuth
-  Strategy from https://github.com/ballantyne/omniauth-tqq, credit go to Scott Ballantyne.
-  Please note that some modifies had written into for my own purpose, like: raw_info attributes rewrote.
-    
-## [QQ-Connect](http://connect.qq.com/intro/login/) OAuth2
+## [QQ-MOBILE] [QQ](http://connect.qq.com/intro/login/) OAuth2
   Strategy from https://github.com/kaichen/omniauth-qq-connect, credit go to Kai Chen.
 
 ## Installation
@@ -31,8 +27,8 @@ Here's a quick example, adding the middleware to a Rails app in `config/initiali
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :tqq, ENV['TQQ_KEY'], ENV['TQQ_SECRET']
-  provider :qq_connect, ENV['QQ_CONNECT_KEY'], ENV['QQ_CONNECT_SECRET']
+  provider :qq, ENV['QQ_KEY'], ENV['QQ_SECRET']
+  provider :qq_mobile, ENV['QQ_MOBILE_KEY'], ENV['QQ_MOBILE_SECRET']
 end
 ```
 
@@ -40,40 +36,9 @@ end
 
 Here's an example *Authentication Hash* available in `request.env['omniauth.auth']`:
 
-### TQQ returns:
 
-```ruby
-{
-  :provider => 'tqq',
-  :uid => 'B11630C4...', # QQ call it openid
-  :info => {
-    :nickname => 'beenhero',
-    :email => '',
-    :name => 'beenhero',
-    :location => '杭州',
-    :image => 'http://app.qlogo.cn/mbloghead/b8bc8cee839d42d1824c/40',
-    :description => '碳水化合物而已',
-    :urls => { :Tqq => 't.qq.com/beenhero' },
-  },
-  :credentials => {
-    :token => '2.00JjgzmBd7F...', # OAuth access_token, which you may wish to store
-    :secret => 'ac737720847e...',
-  },
-  :extra => {
-    :raw_info => {
-      :data => {
-        ... # data from http://open.t.qq.com/api/user/info?format=json, check by yourself
-      },
-      # extracted some general named attribute from [date]
-      :gender => 'm', # m: male, f: female, '': none
-      :followers_count: 53,
-      :friends_count: 14,
-    }
-  }
-}
-```
 
-### QQ-Connect returns:
+### QQ-MOBILE and QQ returns:
 
 ```ruby
 {

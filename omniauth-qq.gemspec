@@ -4,9 +4,9 @@ require File.expand_path('../lib/omniauth-qq/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["Bin He"]
   gem.email         = ["beenhero@gmail.com"]
-  gem.description   = %q{OmniAuth strategies for TQQ and QQ Connect).}
-  gem.summary       = %q{OmniAuth strategies for TQQ and QQ Connect).}
-  gem.homepage      = "https://github.com/beenhero/omniauth-qq"
+  gem.description   = %q{OmniAuth strategies for QQ and QQ_MOBILE Connect).}
+  gem.summary       = %q{OmniAuth strategies for QQ and QQ_MOBILE Connect).}
+  gem.homepage      = "https://github.com/tofugear/omniauth-qq"
 
   gem.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   gem.files         = `git ls-files`.split("\n")
@@ -16,7 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = Omniauth::Qq::VERSION
 
   gem.add_dependency 'omniauth', '~> 1.0'
-  gem.add_dependency 'omniauth-oauth', '~> 1.0'
   gem.add_dependency 'omniauth-oauth2', '~> 1.0'
-  gem.add_dependency 'multi_json'
 end
