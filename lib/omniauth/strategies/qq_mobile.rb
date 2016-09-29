@@ -24,7 +24,7 @@ module OmniAuth
         {
           :nickname => raw_info['nickname'],
           :name => raw_info['nickname'],
-          :image => raw_info['figureurl_qq_1'],
+          :image => raw_info['figureurl_1'],
         }
       end
 
@@ -41,15 +41,13 @@ module OmniAuth
           client.request(:get, "https://graph.qq.com/user/get_user_info", :params => {
               :format => :json,
               :openid => request.params['openid'],
-              :oauth_consumer_key => options[:client_id],
+              :oauth_consumer_key => request.params['uid'],
               :access_token => access_token.token
             }, :parse => :json).parsed
         end
       end
 
       def callback_phase
-          puts "inspect self....."
-          puts self.inspect
           if !request.params['access_token'] || request.params['access_token'].to_s.empty?
               raise ArgumentError.new("No access token provided.")
           end
@@ -75,11 +73,7 @@ module OmniAuth
       protected
 
       def build_access_token
-          puts "inspect access token..........."
-          puts request.params.inspect
-
           hash = request.params.slice("access_token","openid")
-          puts "inspect hash #{hash.inspect}"
           ::OAuth2::AccessToken.from_hash(
             client,
             hash
