@@ -5,17 +5,16 @@ require 'omniauth/strategies/oauth2'
 module OmniAuth
   module Strategies
     class QQ < OmniAuth::Strategies::OAuth2
-      option :name, "qq_connect"
+      option :name, "qq"
 
       option :client_options, {
-        :site => 'https://graph.qq.com/oauth2.0/',
+        :site => 'https://graph.qq.com',
         :authorize_url => '/oauth2.0/authorize',
         :token_url => "/oauth2.0/token"
       }
 
       option :token_params, {
-        :state => 'foobar',
-        :parse => :query
+        :parse => :json
       }
 
       uid do
@@ -30,14 +29,14 @@ module OmniAuth
         end
       end
 
-      info do 
-        { 
+      info do
+        {
           :nickname => raw_info['nickname'],
           :name => raw_info['nickname'],
           :image => raw_info['figureurl_1'],
         }
       end
-      
+
       extra do
         {
           :raw_info => raw_info
@@ -52,9 +51,21 @@ module OmniAuth
               :format => :json,
               :openid => uid,
               :oauth_consumer_key => options[:client_id],
-              :access_token => access_token.token
+              :access_token => access_token.token,
             }, :parse => :json).parsed
         end
+      end
+
+      protected
+      def build_access_token
+        params = {
+          'client_id' => client.id,
+          'client_secret' => client.secret,
+          'code' => request.params['code'],
+          'grant_type' => 'authorization_code',
+          'redirect_uri' => options[:redirect_uri]
+        }.merge(token_params.to_hash(symbolize_keys: true))
+        client.get_token(params, {:mode => :query})
       end
     end
   end

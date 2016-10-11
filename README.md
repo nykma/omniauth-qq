@@ -1,8 +1,8 @@
 # Omniauth QQ
 
-This is QQ strategies collection for OmniAuth 1.0, which includes TQQ and QQ-Connect.
+This is QQ strategies collection for OmniAuth 2.0, which includes QQ web and QQ mobile.
   
-## [QQ-MOBILE] [QQ](http://connect.qq.com/intro/login/) OAuth2
+## [QQ-MOBILE QQ](http://connect.qq.com/intro/login/) OAuth2
   Strategy from https://github.com/kaichen/omniauth-qq-connect, credit go to Kai Chen.
 
 ## Installation
