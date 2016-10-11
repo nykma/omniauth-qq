@@ -50,7 +50,7 @@ module OmniAuth
           client.request(:get, "https://graph.qq.com/user/get_user_info", :params => {
               :format => :json,
               :openid => uid,
-              :oauth_consumer_key => options[:client_id],
+              :oauth_consumer_key => client.id,
               :access_token => access_token.token,
             }, :parse => :json).parsed
         end
