@@ -14,7 +14,7 @@ module OmniAuth
       }
 
       option :token_params, {
-        :parse => :json
+        :parse => :query
       }
 
       uid do

@@ -72,6 +72,10 @@ Here's an example *Authentication Hash* available in `request.env['omniauth.auth
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create new Pull Request
 
+## problem fixed
+
+The problem is QQ web returning text/plain for the content-type header when it should be application/x-www-form-urlencoded
+
 ## License
 
 Copyright (c) 2012 by Bin He
