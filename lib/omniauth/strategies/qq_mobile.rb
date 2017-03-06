@@ -2,6 +2,7 @@
 
 require 'omniauth/strategies/oauth2'
 
+# Refactoring is neeeded. This module should be unified with qq
 module OmniAuth
   module Strategies
     class QQMobile < OmniAuth::Strategies::OAuth2
@@ -25,6 +26,7 @@ module OmniAuth
           :nickname => raw_info['nickname'],
           :name => raw_info['nickname'],
           :image => raw_info['figureurl_1'],
+          :unionid => raw_info['unionid']
         }
       end
 
@@ -45,6 +47,18 @@ module OmniAuth
               :access_token => access_token.token
             }, :parse => :json).parsed
         end
+
+        @raw_info['unionid'] ||= begin
+          response = client.request(:get, "/oauth2.0/me", :params => {
+              :format => :json,
+              :access_token => access_token.token,
+              :unionid => '1'
+          })
+          matched = response.body.match(/"unionid":"(?<unionid>\w+)"/)
+          matched[:unionid]
+        end
+
+        @raw_info
       end
 
       def callback_phase
