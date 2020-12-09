@@ -57,14 +57,16 @@ module OmniAuth
             }, :parse => :json).parsed
         end
 
-        @raw_info['unionid'] ||= begin
-          response = client.request(:get, "/oauth2.0/me", :params => {
-              :format => :json,
-              :access_token => access_token.token,
-              :unionid => '1'
-          })
-          matched = response.body.match(/"unionid":"(?<unionid>\w+)"/)
-          matched[:unionid]
+        if options[:fetch_union_id]
+          @raw_info['unionid'] ||= begin
+            response = client.request(:get, "/oauth2.0/me", :params => {
+                :format => :json,
+                :access_token => access_token.token,
+                :unionid => '1'
+            })
+            matched = response.body.match(/"unionid":"(?<unionid>\w+)"/)
+            matched[:unionid]
+          end
         end
 
         @raw_info

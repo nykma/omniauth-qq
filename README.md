@@ -27,7 +27,9 @@ Here's a quick example, adding the middleware to a Rails app in `config/initiali
 
 ```ruby
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :qq, ENV['QQ_KEY'], ENV['QQ_SECRET']
+  # Fetching UnionID need additional privilege
+  # https://wiki.connect.qq.com/unionid%E4%BB%8B%E7%BB%8D
+  provider :qq, ENV['QQ_KEY'], ENV['QQ_SECRET'], fetch_union_id: true
   provider :qq_mobile, ENV['QQ_MOBILE_KEY'], ENV['QQ_MOBILE_SECRET']
 end
 ```
